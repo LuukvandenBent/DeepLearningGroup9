@@ -53,8 +53,15 @@ os.makedirs(save_weights)
 os.makedirs(save_images)
 os.makedirs(save_csv_files)
 
-train_files = glob.glob('/path_to_SID_short_training_and_validation')
-gt_files =glob.glob('/path_to_SID_long_training_and_validation')
+train_files = glob.glob('/SID_cvpr_18_dataset/Sony/short/0*_00_0.1s.ARW')
+train_files +=glob.glob('/SID_cvpr_18_dataset/Sony/short/2*_00_0.1s.ARW')
+
+
+gt_files = []
+for x in train_files:
+    gt_files += glob.glob('/SID_cvpr_18_dataset/Sony/long/*'+x[-17:-12]+'*.ARW')
+
+
 # If you have less CPU RAM you would like to use fewer images for training.
 if dry_run:
     train_files = train_files[:2]
@@ -65,8 +72,13 @@ dataloader_train = DataLoader(load_data(train_files,gt_files,train_amplification
 # gt_amp=True means use GT information for amplification. Make it false for automatic estimation.
 # 20 here means that after every 20 images have been loaded to CPU RAM print statistics.
 
-test_files = glob.glob('/path_to_SID_short_testing') 
-gt_files +=glob.glob('/path_to_SID_long_testing')
+test_files = glob.glob('/SID_cvpr_18_dataset/Sony/short/1*_00_0.1s.ARW')
+gt_files = []
+for x in test_files:
+    gt_files = gt_files+ glob.glob('/SID_cvpr_18_dataset/Sony/long/*'+x[-17:-12]+'*.ARW')#NOTICE THIS IS THE SAME AS FOR THE TRAIN_FILES!! MISTAKE?
+
+
+
 if dry_run:
     test_files = test_files[:2]
     
