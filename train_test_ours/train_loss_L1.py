@@ -127,7 +127,7 @@ while iter_num<opt['iterations']:
         #loss2 = feature_loss(pred, gt, which='relu2')
         loss1 = l1_loss(pred,gt)
         #print('l1,vgg loss: ',loss1.item(), loss2.item())
-        loss = (0.2*loss3) #loss1# + (0.2*loss3)
+        loss = loss1# + (0.2*loss3)
         loss.backward()
         optimizer.step()
         optimizer.zero_grad()        

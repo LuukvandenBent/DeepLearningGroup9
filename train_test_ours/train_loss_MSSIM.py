@@ -14,7 +14,7 @@ opt['atWhichReduce'] = [500000] # Reduce learning rate at these iterations.
 opt['batch_size'] = 8
 opt['atWhichSave'] = [2,100002,150002,200002,250002,300002,350002,400002,450002,500002,550000, 600000,650002,700002,750000,800000,850002,900002,950000,1000000] # testing will be done at these iterations and corresponding model weights will be saved.
 opt['iterations'] = 1000005 # The model will run for these many iterations.
-dry_run = False#If you wish to first test the entire workflow, for couple of iterations, make this TRUE
+dry_run = False #If you wish to first test the entire workflow, for couple of iterations, make this TRUE
 dry_run_iterations = 100 # If dry run flag is set TRUE the code will terminate after these many iterations
 
 metric_average_file = 'metric_average.txt' # Average metrics will be saved here. Please note these are only for supervison. We used MATLAB for final PSNR and SSIM evaluation.
@@ -107,7 +107,7 @@ print('Device on cuda: {}'.format(next(model.parameters()).is_cuda))
 iter_num = 0
 l1_loss = torch.nn.L1Loss()
 #feature_loss = Vgg16().to(device)
-dssim = SSIM(data_range=1.0, size_average=True, channel=3)
+dssim = MS_SSIM(data_range=1.0, size_average=True, channel=3)
 optimizer = torch.optim.Adam(model.parameters(), lr=opt['base_lr'])
 optimizer.zero_grad()
 loss_list = ['L1_loss,Feature_loss,MS_SSIM']
