@@ -50,7 +50,8 @@ def part_init(gt_files,train_files,num_print,filename,gt_amp=False):
     gt_list = []
     train_list = []
     mean = 0
-    
+    print(len(gt_files))
+    print(len(train_files)) # = 2????
     for i in range(len(gt_files)):
         raw = rawpy.imread(gt_files[i])
         img_gt = raw.postprocess(use_camera_wb=True, half_size=False, no_auto_bright=True, output_bps=16).copy()
@@ -85,11 +86,10 @@ def part_init(gt_files,train_files,num_print,filename,gt_amp=False):
         na5 = get_na(bins,weights5,img_loww)
         
         # load GT amplifications if required and save in ta
-
-	#if gt_files[i][-7]=='3':
-        #    ta=300
-        #else:
-        #    ta=100
+        if gt_files[i][-7]=='3':
+            ta=300
+        else:
+            ta=100
         
         H,W = img_loww.shape    
         a = np.float32(np.float64(H*W*0.01)/np.sum(img_loww,dtype=np.float64))
