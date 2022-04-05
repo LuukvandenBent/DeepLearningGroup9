@@ -10,10 +10,10 @@ Finally depending on amount of CPU RAM you have, choose the number of images to 
 
 opt={'base_lr':1e-4} # Initial learning rate
 opt['reduce_lr_by'] = 0.1 # Reduce learning rate by 10 times
-opt['atWhichReduce'] = [500000] # Reduce learning rate at these iterations.
+opt['atWhichReduce'] = [250000] # Reduce learning rate at these iterations.
 opt['batch_size'] = 8
-opt['atWhichSave'] = [2,100002,150002,200002,250002,300002,350002,400002,450002,500002,550000, 600000,650002,700002,750000,800000,850002,900002,950000,1000000] # testing will be done at these iterations and corresponding model weights will be saved.
-opt['iterations'] = 1000005 # The model will run for these many iterations.
+opt['atWhichSave'] = [2,100002,150002,200002,250002,300002,350002,400002,450002,500002,550000]#, 600000,650002,700002,750000,800000,850002,900002,950000,1000000] # testing will be done at these iterations and corresponding model weights will be saved.
+opt['iterations'] = 500005 # The model will run for these many iterations.
 dry_run = False # If you wish to first test the entire workflow, for couple of iterations, make this TRUE
 dry_run_iterations = 100 # If dry run flag is set TRUE the code will terminate after these many iterations
 
@@ -39,7 +39,7 @@ from network import Net
 from vainF_ssim import MS_SSIM
 
 os.environ["CUDA_DEVICE_ORDER"]="PCI_BUS_ID"   
-os.environ["CUDA_VISIBLE_DEVICES"]="1" # You would probably like to change it to 0 or some other integer depending on GPU avalability.
+os.environ["CUDA_VISIBLE_DEVICES"]="0" # You would probably like to change it to 0 or some other integer depending on GPU avalability.
 
 shutil.rmtree(metric_average_file, ignore_errors = True)
 shutil.rmtree(test_amplification_file, ignore_errors = True)
@@ -53,13 +53,13 @@ os.makedirs(save_weights)
 os.makedirs(save_images)
 os.makedirs(save_csv_files)
 
-train_files = glob.glob('/SID_cvpr_18_dataset/Sony/short/0*_00_0.1s.ARW')
-train_files +=glob.glob('/SID_cvpr_18_dataset/Sony/short/2*_00_0.1s.ARW')
+train_files = glob.glob('../../Sony_small/Sony/short/0*_00_0.1s.ARW')
+train_files +=glob.glob('../../Sony_small/Sony/short/2*_00_0.1s.ARW')
 
 
 gt_files = []
 for x in train_files:
-    gt_files += glob.glob('/SID_cvpr_18_dataset/Sony/long/*'+x[-17:-12]+'*.ARW')
+    gt_files += glob.glob('../../Sony_small/Sony/long/*'+x[-17:-12]+'*.ARW')
 
 
 # If you have less CPU RAM you would like to use fewer images for training.
@@ -72,10 +72,10 @@ dataloader_train = DataLoader(load_data(train_files,gt_files,train_amplification
 # gt_amp=True means use GT information for amplification. Make it false for automatic estimation.
 # 20 here means that after every 20 images have been loaded to CPU RAM print statistics.
 
-test_files = glob.glob('/SID_cvpr_18_dataset/Sony/short/1*_00_0.1s.ARW')
+test_files = glob.glob('../../Sony_small/Sony/short/1*_00_0.1s.ARW')
 gt_files = []
 for x in test_files:
-    gt_files = gt_files+ glob.glob('/SID_cvpr_18_dataset/Sony/long/*'+x[-17:-12]+'*.ARW')#NOTICE THIS IS THE SAME AS FOR THE TRAIN_FILES!! MISTAKE?
+    gt_files = gt_files+ glob.glob('../../Sony_small/Sony/long/*'+x[-17:-12]+'*.ARW')
 
 
 

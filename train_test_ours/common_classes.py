@@ -83,13 +83,12 @@ def part_init(gt_files,train_files,num_print,filename,gt_amp=False):
         img_loww = (np.maximum(img - 512,0)/ (16383 - 512))       
         
         na5 = get_na(bins,weights5,img_loww)
-        
         # load GT amplifications if required and save in ta
 
-	#if gt_files[i][-7]=='3':
-        #    ta=300
-        #else:
-        #    ta=100
+        if gt_files[i][-7]=='3':
+            ta=300
+        else:
+            ta=100
         
         H,W = img_loww.shape    
         a = np.float32(np.float64(H*W*0.01)/np.sum(img_loww,dtype=np.float64))
