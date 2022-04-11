@@ -138,9 +138,10 @@ class Net(nn.Module):
                         
         self.RDB1 = RDB(nChannels=64, nDenselayer=4, growthRate=32)
         self.RDB2 = RDB(nChannels=64, nDenselayer=5, growthRate=32)
-        #self.RDB3 = RDB(nChannels=64, nDenselayer=5, growthRate=32)
+        self.RDB3 = RDB(nChannels=64, nDenselayer=5, growthRate=32)
+        self.RDB4 = RDB(nChannels=64, nDenselayer=5, growthRate=32)
 
-        self.rdball = conv_layer(int(64*2), 64, kernel_size=1, groups=1, bias=False, negative_slope=1, bn=False, init_type='kaiming', fan_type='fan_in', activation=False, pixelshuffle_init=False, upscale=False, num_classes=False, weight_normalization = True)
+        self.rdball = conv_layer(int(64*4), 64, kernel_size=1, groups=1, bias=False, negative_slope=1, bn=False, init_type='kaiming', fan_type='fan_in', activation=False, pixelshuffle_init=False, upscale=False, num_classes=False, weight_normalization = True)
         
         self.conv_rdb8x = conv_layer(int(64//16), 64, kernel_size=3, groups=1, bias=True, negative_slope=1, bn=False, init_type='kaiming', fan_type='fan_in', activation=False, pixelshuffle_init=False, upscale=False, num_classes=False, weight_normalization = True)
         
@@ -173,8 +174,9 @@ class Net(nn.Module):
         low32x_beforeRDB = self.conv32x(self.downshuffle(low2x,16))
         rdb1 = self.RDB1(low32x_beforeRDB)
         rdb2 = self.RDB2(rdb1)
-        #rdb3 = self.RDB3(rdb2)
-        rdb8x = torch.cat((rdb1,rdb2),dim=1)
+        rdb3 = self.RDB3(rdb2)
+        rdb4 = self.RDB4(rdb3)
+        rdb8x = torch.cat((rdb1,rdb2,rdb3,rdb4),dim=1)
         rdb8x = self.rdball(rdb8x)+low32x_beforeRDB
         rdb8x = self.up4(rdb8x)
         rdb8x = self.conv_rdb8x(rdb8x)
