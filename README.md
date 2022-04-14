@@ -1,18 +1,4 @@
-<head>
-    <title>DeepLearningGroup9</title>
-    <style type="text/css">
-      blockquote.spoiler {
-        background-color : rgb(238,238,238);
-        padding : 10pt 10pt 1pt 10pt;
-      }
-      blockquote.spoiler * {
-        opacity : 0;
-      }
-      blockquote.spoiler:hover * {
-        opacity : 1;
-      }
-    </style>
-  </head>
+
   
 # Reproducibility Project: "Restoring Extremely Dark Images In Real Time", Mohit Lamba, Kaushik Mitra, 2021
 Group 9: Sahánd, Luuk, Annabel, Ethem
