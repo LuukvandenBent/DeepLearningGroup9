@@ -17,7 +17,7 @@ This was achieved by processing in higher scale -spaces allowing the intermediat
 
 ![Figure 1](figures/figure1.png?raw=true)
 
- *Figure 1. (a) Almost all methods rely on sequential processing. (b) The authors propose a parallel architecture for high inference speed. *
+ *Figure 1. (a) Almost all methods rely on sequential processing. (b) The authors propose a parallel architecture for high inference speed.*
  
 Another unique feature of the model is the ability to process all the scale-spaces concurrently as all the encoder scales operate directly on the input image and do not have any inter-dependencies resulting in high inference speeds. This is because the different encoder layers can be calculated in parallel. The architectural details of the model are shown on the left of figure 2. Five different blocks exist, the three encoders, LSE, MSE, HSE and the two Fuse Blocks 1 and 2. The output of the MSE and HSE is concatenated in the Fuse Block 1, while the output of this fuse block and the LSE is then concatenated in Fuse Block 2, resulting in the output of the entire model.
 
