@@ -84,11 +84,11 @@ Since we reduced the amount of iterations for the training, we first wanted to c
 
 *Figure 6: Different loss curves for different loss functions.*
 
-In tabel 1 we asses the performance of the different loss functions based on the metrics PSNR and SSIM. 
+In Table 1 we asses the performance of the different loss functions based on the metrics PSNR and SSIM. 
 
 <img src="figures/Metrics_loss.png" alt="Metrics losses" width="600"/>
 
-*Tabel 1: Resulting metrics based on the loss functions used*
+*Table 1: Resulting metrics based on the loss functions used*
 
 
 To test the network weights on a set of images, the provided script demo.py can be used. Simply add the test input images to the Demo_imgs folder, along with the weights for the network. Subsequently running demo.py then outputs the generated .jpg files, which can be seen in table X. Do note that the weights file should be called weights for the python file to run correctly.
@@ -143,10 +143,11 @@ Again, we first take a look at the loss curves to guarantee saturation. As we sa
 *Figure 13: Different loss curves for different amount of RDB blocks.*
 
 
-Additionally, we asses the performance of the different architectures based on the metrics PSNR and SSIM in Tabel 2. 
+Additionally, we asses the performance of the different architectures based on the metrics PSNR and SSIM in Table 2. 
 
 <img src="figures/Metrics_RDB.png" alt="Metrics RDB" width="600"/>
-*Tabel 2: Resulting metrics based on the different RDB blocks.*
+
+*Table 2: Resulting metrics based on the different RDB blocks.*
 
 
 ## Discussion
