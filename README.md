@@ -144,7 +144,7 @@ Similar to the second training, for the third training the same blocks of codes 
 *Figure 13. Addition of the fourth RDB block.*
 
 
-##  Results
+###  Results
 Again, we first take a look at the loss curves to guarantee saturation. As we saw for the loss functions, we see that although the loss is quite noisy, the performance does not really improve anymore after ~250.000 iterations which means that the training has saturated. This is shown in Figure 14.
 
 ![Losses rdb](figures/Losses_RDB.png?raw=true)
@@ -152,7 +152,6 @@ Again, we first take a look at the loss curves to guarantee saturation. As we sa
 
 ![Figure 32](figures/figure32.PNG?raw=true)
 
-### Quantitative results
 Next we look at some quantitative results, if we look at the average Peak Signal to Noise Ratio (PSNR) and Structural Similarity Index Measurement (SSIM). We can observe that our results also all perform worse than the original claim of the paper. This is most probably because of the use of less data. However it is worth noting that all our measurements are so close, that one outperforming the other is highly likely due to variance. Furthermore, when looking at these results, it is not abundantly clear that the proposed RDB* really outperforms the classical RDB (and even underperforms in this test).
 
 
@@ -163,7 +162,6 @@ Next we look at some quantitative results, if we look at the average Peak Signal
 
 ![Figure 33](figures/figure33.PNG?raw=true)
 
-### Qualitative Results
 To test the performance of the network, images are created from the network in the same way as described in the Loss function section. Although all images look very alike, there can be some little differences spotted in perceived brightness, as well as some small color distortions. However it is hard to visually decide which network really performed better, since the differences are so small.
 
 ## Discussion
