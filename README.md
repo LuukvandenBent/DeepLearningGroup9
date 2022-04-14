@@ -191,7 +191,12 @@ PSNR/SSIM
 
 
 # Appendix
-<details>/<summary></summary>![Figure 3](figures/figure3.png?raw=true)</details>
+<details>
+<summary>Click me</summary>
+
+![peshka](https://user-images.githubusercontent.com/6751442/107185174-fcd8c980-69f2-11eb-89d4-0843c47d781b.jpeg) 
+
+</details>
 <details> <summary>Original Raw Un-edited</summary>
   ![Figure A11](figures/figureA11.png?raw=true)
   ![Figure A12](figures/figureA12.png?raw=true)
