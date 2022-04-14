@@ -79,7 +79,7 @@ Since we reduced the amount of iterations for the training, we first wanted to c
 
 In the tabel below we asses the performance of the different loss functions based on the metrics PSNR and SSIM. 
 
-<img src="figures/Metrics_loss..png" alt="Metrics losses" width="600"/>
+<img src="figures/Metrics_loss.png" alt="Metrics losses" width="600"/>
 ![Metrics losses](figures/Metrics_loss.png?raw=true)
 
 
