@@ -1,7 +1,7 @@
 
   
-# Reproducibility Project: "Restoring Extremely Dark Images In Real Time", Mohit Lamba, Kaushik Mitra, 2021
-Group 9: Sahánd, Luuk, Annabel, Ethem
+# Reproducibility Project: "Restoring Extremely Dark Images In Real Time" 
+Group 9: Sahánd Wagemakers, Luuk van Den Bent, Annabel Hazewinkel, Ethem
 31/03/2022
 
 This blog post is about the reproducibility of the Deep Learning paper “Restoring Extremely Dark Images In Real Time”[insert link] by Mohit Lamba and Kaushik Mitra. We have investigated alternative loss functions to the existing problem, as well as the effect of the (amount of) proposed RDB* modules, compared to the original RDB modules. This research is conducted as part of the CS4240 Deep Learning course at Delft University of Technology. 
@@ -41,6 +41,8 @@ Further information on the modifications to the code and the motivations behind 
 For training the network, the authors used the L1 Regularization loss function and the multiscale structural similarity index (MS-SSIM) loss function with a weightage of 0.8 and 0.2, respectively. In order to verify the performance of this combination, these loss functions were tested individually. The structural similarity index (SSIM) loss function was also tested for additional validation.
 
 The L1 loss stands for Least Absolute Deviations (LAD) and is defined as follows: 
+
+<img src="figures/figure3.png" alt="Figure 3" width="50"/>
 
 ![Figure 3](figures/figure3.png?raw=true)
 
