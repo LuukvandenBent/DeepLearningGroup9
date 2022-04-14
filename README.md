@@ -110,30 +110,26 @@ Baseline
 Another image which was not used for training is tested with a different exposure time(0.033s respectively instead of 0.1s), which can be found in table X. The system seems to perform significantly worse, judging on the noise and green hue, but the image is still clearly understandable.
 
 
-## RDB Block
-
-The authors have modified the Residual Dense Block (RDB) that is widely used for non-linear rectification and reasoned that it is more effective. They have stated in their ablation study, that the change from RDB* to RDB caused the PSNR/SSIM to drop from 28.66dB/0.79 to 27.96dB/0.77. We went ahead and tested this. Additionally, we investigated how effectively a change in the number of RDB blocks within the High Scale Encoder impacts the results. Therefore we ran a total number of three training sessions for the study of the RDB block.
-
 ### Code RDB Block  
-For the first training the network.py file has been adjusted by changing the activation type in the convolution layers. In the RDB* module, the first, middle and last convolutional layer’s activation functions are “false” (meaning disabled), “before” and “before” respectively, while reverting it to the original canonical RDB they all become “after”. This can be seen in the network.py file at line 85 to 105, in Figure 8.
+For the first training the network.py file has been adjusted by changing the activation type in the convolution layers. In the RDB* module, the first, middle and last convolutional layer’s activation functions are “false” (meaning disabled), “before” and “before” respectively, while reverting it to the original canonical RDB they all become “after”. This can be seen in the network.py file at lines 92, 97 and 102, in Figure 8.
 
 ![Figure 22b](figures/figure22b.png?raw=true)
 
 *Figure 8. Adjustment of the activation functions.*
 
-For modifying the number of RDB blocks in the HSE the network.py file needs to be edited again, but this time at lines 141 and line 143, where in the first line the third RDB initialisation is removed, and in the second line the settings of the convolutional layer are adjusted to accommodate for two sets of 64 input channels, rather than three. This is shown in Figure 9. 
+For modifying the number of RDB blocks in the HSE the network.py file needs to be edited again, but this time at lines 150 and line 151, where in the first line the third RDB initialisation is removed, and in the second line the settings of the convolutional layer are adjusted to accommodate for two sets of 64 input channels, rather than three. This is shown in Figure 9. 
 
 ![Figure 23b](figures/figure23b.png?raw=true)
 
 *Figure 9. Adjustment of the number of RDB blocks.*
 
-Finally, at line 176, the third RDB block itself is removed, and the concatenation is adjusted to only include the first and second RDB blocks. This is shown in Figure 10. 
+Finally, at line 188, the third RDB block itself is removed, and the concatenation is adjusted to only include the first and second RDB blocks. This is shown in Figure 10. 
 
 ![Figure 24b](figures/figure25b.png?raw=true)
 
 *Figure 10. Removal of the third RDB block.*
 
-Finally, similar to the second training, for the third training the same blocks of codes are edited, but instead of removing RDB3, an RDB4 is added, and the concatenation is adjusted to 3 sets of 64 channels. This is shown in Figures 11 and 12. 
+Similar to the second training, for the third training the same blocks of codes are edited, but instead of removing RDB3, an RDB4 is added, and the concatenation is adjusted to 3 sets of 64 channels. This is shown in Figures 11 and 12. 
 
 ![Figure 23c](figures/figure23c.png?raw=true)
 
