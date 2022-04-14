@@ -44,14 +44,11 @@ The L1 loss stands for Least Absolute Deviations (LAD) and is defined as follows
 
 <img src="figures/figure3.png" alt="Figure 3" width="400"/>
 
-![Figure 3](figures/figure3.png?raw=true)
 
 The SSIM is defined as the structural similarity index measure and can be used to predict the perceived quality of images [1]. The MS-SSIM loss function is computed as follows: 
 
 <img src="figures/figure4.png" alt="Figure 4" width="400"/>
 <img src="figures/figure5.png" alt="Figure 5" width="400"/>
-![Figure 4](figures/figure4.png?raw=true)
-![Figure 5](figures/figure5.png?raw=true)
 
 The multiscale structural similarity index (MS-SSIM) is an extension of the SSIM function that achieves better accuracy than the single scale SSIM approach but at the cost of relatively lower processing speed [2]. 
 
@@ -82,6 +79,7 @@ Since we reduced the amount of iterations for the training, we first wanted to c
 
 In the tabel below we asses the performance of the different loss functions based on the metrics PSNR and SSIM. 
 
+<img src="figures/Metrics_loss..png" alt="Metrics losses" width="600"/>
 ![Metrics losses](figures/Metrics_loss.png?raw=true)
 
 
