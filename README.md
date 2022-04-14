@@ -225,6 +225,12 @@ PSNR/SSIM
   ![Figure A35](figures/figureA35.png?raw=true)
   
   ![Figure A36](figures/figureA36.png?raw=true)
+  
+  ![Figure A37](figures/figureA37.png?raw=true)
+  
+  ![Figure A38](figures/figureA38.png?raw=true)
+  
+  ![Figure A39](figures/figureA39.png?raw=true)
 
 </details>
 <details>
@@ -243,6 +249,12 @@ PSNR/SSIM
   
   ![Figure A46](figures/figureA46.png?raw=true)
 
+  ![Figure A47](figures/figureA47.png?raw=true)
+  
+  ![Figure A48](figures/figureA48.png?raw=true)
+  
+  ![Figure A49](figures/figureA49.png?raw=true)
+
 </details>
 <details>
   
@@ -259,6 +271,12 @@ PSNR/SSIM
   ![Figure A55](figures/figureA55.png?raw=true)
   
   ![Figure A56](figures/figureA56.png?raw=true)
+
+  ![Figure A57](figures/figureA57.png?raw=true)
+  
+  ![Figure A58](figures/figureA58.png?raw=true)
+  
+  ![Figure A59](figures/figureA59.png?raw=true)
 
 </details>
 <details>
@@ -277,6 +295,12 @@ PSNR/SSIM
   
   ![Figure A66](figures/figureA66.png?raw=true)
 
+  ![Figure A67](figures/figureA67.png?raw=true)
+  
+  ![Figure A68](figures/figureA68.png?raw=true)
+  
+  ![Figure A69](figures/figureA69.png?raw=true)
+
 </details>
 <details>
   
@@ -293,5 +317,11 @@ PSNR/SSIM
   ![Figure A75](figures/figureA75.png?raw=true)
   
   ![Figure A76](figures/figureA76.png?raw=true)
+
+  ![Figure A77](figures/figureA77.png?raw=true)
+  
+  ![Figure A78](figures/figureA78.png?raw=true)
+  
+  ![Figure A79](figures/figureA79.png?raw=true)
 
 </details>
