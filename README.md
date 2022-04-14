@@ -6,6 +6,7 @@
 Group 9: Sahánd Wagemakers - 4880897, Luuk van Den Bent - 4886038, Annabel Hazewinkel - 4478223, Ethem Demir - 1544446.
 
 Luuk & Ethem : RDB study
+
 Annabel & Sahánd : Loss function analysis
 
 NOTE: For the code, see the different branches(Loss for the loss function training files, RDB for the rdb function training files and modified architecture).
