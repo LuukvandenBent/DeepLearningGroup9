@@ -83,7 +83,6 @@ Loss grafiek, metrics tabel - Annabel
 Table X: Resulting network outputs based on the loss functions used
 
 
-![Figure 9](figures/figure9.png?raw=true)
 
 Ground Truth
 
