@@ -59,7 +59,6 @@ The L1 loss stands for Least Absolute Deviations (LAD) and is defined as follows
 
 <img src="figures/figure3.png" alt="Figure 3" width="400"/>
 
-### Code Loss Function 
 The SSIM is defined as the structural similarity index measure and can be used to predict the perceived quality of images [1]. The MS-SSIM loss function is computed as follows: 
 
 <img src="figures/figure4.png" alt="Figure 4" width="400"/>
@@ -67,6 +66,7 @@ The SSIM is defined as the structural similarity index measure and can be used t
 
 The multiscale structural similarity index (MS-SSIM) is an extension of the SSIM function that achieves better accuracy than the single scale SSIM approach but at the cost of relatively lower processing speed [2]. 
 
+### Code Loss Function 
 The loss function used can simply be adapted in line that defines the loss within the while-loop for the training setup. Right before this while-loop, the loss functions can be defined. The code can be found in figure X.
 
 ![Figure 8](figures/figure8.png?raw=true)
