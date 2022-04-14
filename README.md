@@ -111,19 +111,19 @@ For the first training the network.py file has been adjusted by changing the act
 
 ![Figure 22b](figures/figure22b.png?raw=true)
 
-*Figure 8.*
+*Figure 8. Adjustment of the activation functions.*
 
-For modifying the number of RDB blocks in the HSE the network.py file needs to be edited again, but this time at lines 141 and line 143, where in the first line the third RDB initialisation is removed, and in the second line the settings of the convolutional layer are adjusted to accommodate for two sets of 64 input channels, rather than three. 
+For modifying the number of RDB blocks in the HSE the network.py file needs to be edited again, but this time at lines 141 and line 143, where in the first line the third RDB initialisation is removed, and in the second line the settings of the convolutional layer are adjusted to accommodate for two sets of 64 input channels, rather than three. This is shown in Figure 9. 
 
-![Figure 23a](figures/figure23a.png?raw=true)
 ![Figure 23b](figures/figure23b.png?raw=true)
+*Figure 9. Adjustment of the number of RDB blocks.*
 
-Finally, at line 176, the third RDB block itself is removed, and the concatenation is adjusted to only include the first and second RDB blocks.
+Finally, at line 176, the third RDB block itself is removed, and the concatenation is adjusted to only include the first and second RDB blocks. This is shown in Figure 10. 
 
-![Figure 24a](figures/figure25a.png?raw=true)
 ![Figure 24b](figures/figure25b.png?raw=true)
+*Figure 10. Removal of the third RDB block.*
 
-Finally, similar to the second training, for the third training the same blocks of codes are edited, but instead of removing RDB3, an RDB4 is added, and the concatenation is adjusted to 3 sets of 64 channels.
+Finally, similar to the second training, for the third training the same blocks of codes are edited, but instead of removing RDB3, an RDB4 is added, and the concatenation is adjusted to 3 sets of 64 channels. This is shown in Figure
 
 ![Figure 23c](figures/figure23c.png?raw=true)
 ![Figure 24c](figures/figure25c.png?raw=true)
