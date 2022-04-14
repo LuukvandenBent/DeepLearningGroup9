@@ -202,11 +202,11 @@ While this reproducibility project did not provide any completely new insights, 
   
   <summary>Ground truth</summary>
   
-  ![Figure A21](figures/figureA21.png?raw=true)
+  ![Figure A21](figures/10022_00_10s.jpg?raw=true)
   
-  ![Figure A22](figures/figureA22.png?raw=true)
+  ![Figure A22](figures/10034_00_10s.jpg?raw=true)
   
-  ![Figure A23](figures/figureA23.png?raw=true)
+  ![Figure A23](figures/10040_00_10s.jpg?raw=true)
 
 </details>
 <details>
