@@ -80,8 +80,6 @@ Since we reduced the amount of iterations for the training, we first wanted to c
 In the tabel below we asses the performance of the different loss functions based on the metrics PSNR and SSIM. 
 
 <img src="figures/Metrics_loss.png" alt="Metrics losses" width="600"/>
-![Metrics losses](figures/Metrics_loss.png?raw=true)
-
 
 Table X: Resulting network outputs based on the loss functions used
 
@@ -129,9 +127,7 @@ Again, we first take a look at the loss curves to guarantee saturation. We see t
 
 Additionally, we asses the performance of the different architectures based on the metrics PSNR and SSIM. 
 
-![Metrics RDB](figures/Metrics_RDB.png?raw=true)
-
-#Qualitative results
+<img src="figures/Metrics_RDB.png" alt="Metrics RDB" width="600"/>
 
 
 ## Discussion
