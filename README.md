@@ -116,27 +116,37 @@ For the first training the network.py file has been adjusted by changing the act
 For modifying the number of RDB blocks in the HSE the network.py file needs to be edited again, but this time at lines 141 and line 143, where in the first line the third RDB initialisation is removed, and in the second line the settings of the convolutional layer are adjusted to accommodate for two sets of 64 input channels, rather than three. This is shown in Figure 9. 
 
 ![Figure 23b](figures/figure23b.png?raw=true)
+
 *Figure 9. Adjustment of the number of RDB blocks.*
 
 Finally, at line 176, the third RDB block itself is removed, and the concatenation is adjusted to only include the first and second RDB blocks. This is shown in Figure 10. 
 
 ![Figure 24b](figures/figure25b.png?raw=true)
+
 *Figure 10. Removal of the third RDB block.*
 
-Finally, similar to the second training, for the third training the same blocks of codes are edited, but instead of removing RDB3, an RDB4 is added, and the concatenation is adjusted to 3 sets of 64 channels. This is shown in Figure
+Finally, similar to the second training, for the third training the same blocks of codes are edited, but instead of removing RDB3, an RDB4 is added, and the concatenation is adjusted to 3 sets of 64 channels. This is shown in Figures 11 and 12. 
 
 ![Figure 23c](figures/figure23c.png?raw=true)
+
+*Figure 11. Adjusting the number of RDB blocks to 4.*
+
 ![Figure 24c](figures/figure25c.png?raw=true)
+
+*Figure 12. Addition of the fourth RDB block.*
 
 
 ###  Results
-Again, we first take a look at the loss curves to guarantee saturation. We see that although the loss is quite noisy, the performance does not really improve anymore after ~250.000 iterations which means that the training has saturated. 
+Again, we first take a look at the loss curves to guarantee saturation. As we saw for the loss functions, we see that although the loss is quite noisy, the performance does not really improve anymore after ~250.000 iterations which means that the training has saturated. This is shown in Figure 13.
 
 ![Losses rdb](figures/Losses_RDB.png?raw=true)
+*Figure 13: Different loss curves for different amount of RDB blocks.*
 
-Additionally, we asses the performance of the different architectures based on the metrics PSNR and SSIM. 
+
+Additionally, we asses the performance of the different architectures based on the metrics PSNR and SSIM in Tabel 2. 
 
 <img src="figures/Metrics_RDB.png" alt="Metrics RDB" width="600"/>
+*Tabel 2: Resulting metrics based on the different RDB blocks.*
 
 
 ## Discussion
