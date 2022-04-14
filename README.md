@@ -3,7 +3,10 @@
 # Reproducibility Project:
 # "Restoring Extremely Dark Images In Real Time" 
 
-Group 9: Sahánd Wagemakers, Luuk van Den Bent, Annabel Hazewinkel, Ethem Demir.
+Group 9: Sahánd Wagemakers - 4880897, Luuk van Den Bent - 4886038, Annabel Hazewinkel - 4478223, Ethem Demir - 1544446.
+
+Luuk & Ethem : RDB study
+Annabel & Sahánd : Loss function analysis
 
 This blog post is about the reproducibility of the Deep Learning paper “Restoring Extremely Dark Images In Real Time” by Mohit Lamba and Kaushik Mitra [1]. We have investigated alternative loss functions to the existing problem, as well as the effect of the (amount of) proposed RDB* modules compared to the original RDB modules. This research is conducted as part of the CS4240 Deep Learning course at Delft University of Technology. 
 
