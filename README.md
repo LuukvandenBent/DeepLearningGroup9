@@ -125,67 +125,23 @@ The authors have modified the Residual Dense Block (RDB) that is widely used for
 
 For the first training the network.py file has been adjusted by changing the activation type in the convolution layers. In the RDB* module, the first, middle and last convolutional layer’s activation functions are “false” (meaning disabled), “before” and “before” respectively, while reverting it to the original canonical RDB they all become “after”. This can be seen in the network.py file at line 85 to 105.
 
-```
-    def __init__(self, nChannels=64, growthRate=32, pos=False):
-        super(make_dense, self).__init__()
-        
-        kernel_size=3
-        if pos=='first':
-            self.conv = conv_layer(nChannels, growthRate, kernel_size=kernel_size, groups=1, bias=False, 
-                                   negative_slope=0.2, bn=False, init_type='kaiming', fan_type='fan_in', 
-                                   activation=False, pixelshuffle_init=False, upscale=False, num_classes=False, 
-                                   weight_normalization = True)
-        elif pos=='middle':
-            self.conv = conv_layer(nChannels, growthRate, kernel_size=kernel_size, groups=1, bias=False, 
-                                   negative_slope=0.2, bn=False, init_type='kaiming', fan_type='fan_in', 
-                                   activation='before', pixelshuffle_init=False, upscale=False, num_classes=False, 
-                                   weight_normalization = True)
-        elif pos=='last':
-            self.conv = conv_layer(nChannels, growthRate, kernel_size=kernel_size, groups=1, bias=False, 
-                                   negative_slope=1, bn=False, init_type='kaiming', fan_type='fan_in', 
-                                   activation='before', pixelshuffle_init=False, upscale=False, num_classes=False, 
-                                   weight_normalization = True)
-        else:
-            raise NotImplementedError('ReLU position error in make_dense')
-```
+![Figure 22a](figures/figure22a.png?raw=true)
+![Figure 22b](figures/figure22b.png?raw=true)
 
 For modifying the number of RDB blocks in the HSE the network.py file needs to be edited again, but this time at lines 141 and line 143, where in the first line the third RDB initialisation is removed, and in the second line the settings of the convolutional layer are adjusted to accommodate for two sets of 64 input channels, rather than three.
 
-```
-        self.RDB1 = RDB(nChannels=64, nDenselayer=4, growthRate=32)
-        self.RDB2 = RDB(nChannels=64, nDenselayer=5, growthRate=32)
-
-        self.rdball = conv_layer(int(64*2), 64, kernel_size=1, groups=1, bias=False, negative_slope=1, 
-                                 bn=False, init_type='kaiming', fan_type='fan_in', activation=False, 
-                                 pixelshuffle_init=False, upscale=False, num_classes=False, weight_normalization = True)
-```
+![Figure 23a](figures/figure23a.png?raw=true)
+![Figure 23b](figures/figure23b.png?raw=true)
 
 Finally, at line 176, the third RDB block itself is removed, and the concatenation is adjusted to only include the first and second RDB blocks.
 
-```
-        rdb1 = self.RDB1(low32x_beforeRDB)
-        rdb2 = self.RDB2(rdb1)
-        rdb8x = torch.cat((rdb1,rdb2),dim=1)
-```
+![Figure 24a](figures/figure24a.png?raw=true)
+![Figure 24b](figures/figure24b.png?raw=true)
+
 Finally, similar to the second training, for the third training the same blocks of codes are edited, but instead of removing RDB3, an RDB4 is added, and the concatenation is adjusted to 3 sets of 64 channels.
 
-```
-        self.RDB1 = RDB(nChannels=64, nDenselayer=4, growthRate=32)
-        self.RDB2 = RDB(nChannels=64, nDenselayer=5, growthRate=32)
-        self.RDB3 = RDB(nChannels=64, nDenselayer=5, growthRate=32)
-        self.RDB4 = RDB(nChannels=64, nDenselayer=5, growthRate=32)
-
-        self.rdball = conv_layer(int(64*4), 64, kernel_size=1, groups=1, bias=False, negative_slope=1, 
-                                 bn=False, init_type='kaiming', fan_type='fan_in', activation=False, 
-                                 pixelshuffle_init=False, upscale=False, num_classes=False, weight_normalization = True)
-```
-```
-        rdb1 = self.RDB1(low32x_beforeRDB)
-        rdb2 = self.RDB2(rdb1)
-        rdb3 = self.RDB3(rdb2)
-        rdb4 = self.RDB4(rdb3)
-        rdb8x = torch.cat((rdb1,rdb2, rdb3, rdb4),dim=1)
-```
+![Figure 23c](figures/figure23c.png?raw=true)
+![Figure 24c](figures/figure24c.png?raw=true)
 
 
 ## Results (RDB block)
