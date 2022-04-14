@@ -74,7 +74,7 @@ Figure X: The code adapted for the loss function adaptation
 ## Results(Loss function)
 A comparison of the course of the different loss functions is shown in the figure below. 
 
-![Figure 8](figures/figure8.png?raw=true)
+![Losses losses](figures/losses_losses.png?raw=true)
 
 Alinea over resultaten, welke resultaten zijn bekeken(grafieken van hoe de loss functions over iteraties gaan), uitleggen dat we het netwerk qua testen hebben gebruikt dat al beschikbaar was met de aangepaste weights, dan images naast elkaar zetten(GT, baseline, results per loss function) 
 
