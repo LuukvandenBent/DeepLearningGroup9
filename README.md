@@ -84,12 +84,16 @@ Since we reduced the amount of iterations for the training, we first wanted to c
 
 *Figure 6: Different loss curves for different loss functions.*
 
-In Table 1 we asses the performance of the different loss functions based on the metrics PSNR and SSIM. 
+What is important to note, is that the scales of the loss functions do not necessarily line up, meaning that we cannot simply compare the absolute values of the loss functions. What we can do is compare the general shapes. We see that all loss functions seem to converge very early on in the total training process, and then fluctuate around the same average for the rest of the session. At the halfway point(250.000 iterations), the learning rate is reduced by half, but this also does not seem to impact the training process by much.
+What we can gather from this, is that the model needs significantly less iterations than we thought at the start. The original model used a larger dataset and trained the model over 1.000.000 iterations. For the reduced dataset we use, around 150.000 to 200.000 iterations should be enough. While we do suspect that this indicates that our model does not generalize very well to other cameras compared to what the original paper claims, this should be evaluated further in the future.
+
+In Table 1 we asses the performance of the different loss functions based on the metrics PSNR and SSIM. This is the average taken over all test files. 
 
 <img src="figures/Metrics_loss.png" alt="Metrics losses" width="600"/>
 
 *Table 1: Resulting metrics based on the loss functions used*
 
+Looking at the average pnsr/SSIM metrics, We see that all our results perform worse than that of the paper with the larger dataset, albeit not significantly so. We also see that the baseline loss function(L1 + SSIM) has the highest peak signal to noise ratio. This indicates that even with the reduced dataset, the originally used loss function seems to perform the best when training the network.
 
 To test the network weights on a set of images, the provided script demo.py can be used. Simply add the test input images to the Demo_imgs folder, along with the weights for the network. Subsequently running demo.py then outputs the generated .jpg files, which can be seen in table X. Do note that the weights file should be called weights for the python file to run correctly.
 While this is hardly a quantitative analysis, as the difference between each result is very small, we see a few very small differences between the results. General image quality seems to be very similar, but there are some slight colouration differences: The bar underneath the table in the SSIM result is coloured more purple, and the baseline has slightly brighter leaves. Noise is apparent in all results, but the difference in noise patterns is not easily understood just from the images alone. However, it is interesting to see that the system performs relatively well with such a small dataset.
