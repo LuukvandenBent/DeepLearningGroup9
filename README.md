@@ -146,7 +146,7 @@ Finally, similar to the second training, for the third training the same blocks 
 ## Results (RDB block)
 Since we reduced the amount of iterations for the training, we first wanted to confirm that our training indeed saturates. If we look at the loss curve below, from the first iteration to the last, we can indeed see that although the loss is quite noisy, the performance does not really improve anymore after ~250.000 iterations. Therefore 500.000 iterations is (more than) enough.
 
-
+![Losses rdb](figures/losses_RDB.png?raw=true)
 
 
 
