@@ -97,7 +97,7 @@ While this is hardly a quantitative analysis, as the difference between each res
 Table X: Another test image with a lower exposure time
 Baseline
 
-![Figure 34](figures/figure34.png?raw=true)
+![Figure 34](figures/figure34.PNG?raw=true)
 
 Another image which was not used for training is tested with a different exposure time(0.033s respectively instead of 0.1s), which can be found in table X. The system seems to perform significantly worse judging on the noise and green hue, but the image is still clearly understandable.
 
@@ -142,7 +142,7 @@ Again, we first take a look at the loss curves to guarantee saturation. As we sa
 ![Losses rdb](figures/Losses_RDB.png?raw=true)
 *Figure 13: Different loss curves for different amount of RDB blocks.*
 
-![Figure 32](figures/figure32.png?raw=true)
+![Figure 32](figures/figure32.PNG?raw=true)
 
 Additionally, we asses the performance of the different architectures based on the metrics PSNR and SSIM in Table 2. 
 
@@ -150,7 +150,7 @@ Additionally, we asses the performance of the different architectures based on t
 
 *Table 2: Resulting metrics based on the different RDB blocks.*
 
-![Figure 33](figures/figure33.png?raw=true)
+![Figure 33](figures/figure33.PNG?raw=true)
 
 ## Discussion
 
