@@ -135,13 +135,13 @@ For modifying the number of RDB blocks in the HSE the network.py file needs to b
 
 Finally, at line 176, the third RDB block itself is removed, and the concatenation is adjusted to only include the first and second RDB blocks.
 
-![Figure 24a](figures/figure24a.PNG?raw=true)
-![Figure 24b](figures/figure24b.PNG?raw=true)
+![Figure 24a](figures/figure25a.png?raw=true)
+![Figure 24b](figures/figure25b.png?raw=true)
 
 Finally, similar to the second training, for the third training the same blocks of codes are edited, but instead of removing RDB3, an RDB4 is added, and the concatenation is adjusted to 3 sets of 64 channels.
 
-![Figure 23c](figures/figure23c.PNG?raw=true)
-![Figure 24c](figures/figure24c.png?raw=true)
+![Figure 23c](figures/figure23c.png?raw=true)
+![Figure 24c](figures/figure25c.png?raw=true)
 
 
 ## Results (RDB block)
