@@ -66,7 +66,7 @@ Figure X:the lines which needed to be uncommented.
 
 The loss function used can simply be adapted in line that defines the loss within the while-loop for the training setup. Right before this while-loop, the loss functions can be defined. The code can be found in figure X.
 
-![Figure 7](figures/figure7.png?raw=true)
+![Figure 8](figures/figure8.png?raw=true)
 
 Figure X: The code adapted for the loss function adaptation
 
