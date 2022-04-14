@@ -42,17 +42,17 @@ The full dataset from the SID paper [2] contains many raw images that together t
 ## General Code Adjustments 
 
 The code provided in the repository alongside the paper was mostly stable. However, several changes were important to make to get the code fully working. A simple but necessary change in the train file used is to adapt the file location used to retrieve the data files: The locations provided in the github repository were incorrect for the repository itself. We set up the dataset location to be outside of the github folder to save space.
-Figure X shows an example of how the locations in glob.glob were modified.
+Figure 3 shows an example of how the locations in glob.glob were modified.
 
 ![Figure 6](figures/figure6.png?raw=true)
 
-Figure X: The adapted glob.glob() locations
+*Figure 3: The adapted glob.glob() locations.*
 
-The other change needed to make the system work was in common_classes.py. In the latest version of the original github repository, a number of lines were commented out. It was unclear as to why this was the case, as the original code contains very little comments. However, simply uncommenting the lines shown in figure X fixed the issue.
+The other change needed to make the system work was in common_classes.py. In the latest version of the original github repository, a number of lines were commented out. It was unclear as to why this was the case, as the original code contains very little comments. However, simply uncommenting the lines shown in Figure 4 fixed the issue.
 
 ![Figure 7](figures/figure7.png?raw=true)
 
-Figure X:the lines which needed to be uncommented.
+*Figure 4: The lines which needed to be uncommented.*
 
 ## Loss Functions
 ### Loss Function Analyis 
@@ -70,17 +70,19 @@ The SSIM is defined as the structural similarity index measure and can be used t
 The multiscale structural similarity index (MS-SSIM) is an extension of the SSIM function that achieves better accuracy than the single scale SSIM approach but at the cost of relatively lower processing speed [5]. 
 
 ### Code Loss Function 
-The loss function used can simply be adapted in line that defines the loss within the while-loop for the training setup. Right before this while-loop, the loss functions can be defined. The code can be found in figure X.
+The loss function used can simply be adapted in line that defines the loss within the while-loop for the training setup. Right before this while-loop, the loss functions can be defined. The code can be found in Figure 5.
 
 ![Figure 8](figures/figure8.png?raw=true)
 
-Figure X: The code adapted for the loss function adaptation
+*Figure 5: The code adapted for the loss function adaptation.*
 
 
 ### Results 
-Since we reduced the amount of iterations for the training, we first wanted to confirm that our training indeed saturates. If we look at the loss curves below, from the first iteration to the last, we can indeed see that although the loss is quite noisy, the performance does not really improve anymore after ~250.000 iterations. Therefore 500.000 iterations is (more than) enough.
+Since we reduced the amount of iterations for the training, we first wanted to confirm that our training indeed saturates. If we look at the loss curves shown in Figure 6, from the first iteration to the last, we can indeed see that although the loss is quite noisy, the performance does not really improve anymore after ~250.000 iterations. Therefore 500.000 iterations is (more than) enough.
 
 ![Losses losses](figures/losses_losses.png?raw=true)
+
+* Figure 6: Different loss curves for different loss functions.*
 
 In the tabel below we asses the performance of the different loss functions based on the metrics PSNR and SSIM. 
 
