@@ -40,7 +40,6 @@ Further information on the modifications to the code and the motivations behind 
 ## Loss Function Analysis
 For training the network, the authors used the L1 Regularization loss function and the multiscale structural similarity index (MS-SSIM) loss function with a weightage of 0.8 and 0.2, respectively. In order to verify the performance of this combination, these loss functions were tested individually. The structural similarity index (SSIM) loss function was also tested for additional validation.
 
-Beetje uitleg over de loss functions(vooral SSIM uitleg) Annabel 
 The L1 loss stands for Least Absolute Deviations (LAD) and is defined as follows: 
 
 ![Figure 3](figures/figure3.png?raw=true)
@@ -52,7 +51,6 @@ The SSIM is defined as the structural similarity index measure and can be used t
 
 The multiscale structural similarity index (MS-SSIM) is an extension of the SSIM function that achieves better accuracy than the single scale SSIM approach but at the cost of relatively lower processing speed [2]. 
 
-Alinea over wat we hebben aangepast voor loss function steeds - Sahánd
 The code provided in the repository alongside the paper was mostly stable. However, several changes were important to make to get the code fully working. A simple but necessary change in the train file used is to adapt the file location used to retrieve the data files: The locations provided in the github repository were incorrect for the repository itself. We set up the dataset location to be outside of the github folder to save space.
 Figure X shows an example of how the locations in glob.glob were modified.
 
@@ -74,39 +72,16 @@ Figure X: The code adapted for the loss function adaptation
 
 
 ## Results(Loss function)
-A comparison of the course of the different loss functions is shown in the figure below. 
+Since we reduced the amount of iterations for the training, we first wanted to confirm that our training indeed saturates. If we look at the loss curves below, from the first iteration to the last, we can indeed see that although the loss is quite noisy, the performance does not really improve anymore after ~250.000 iterations. Therefore 500.000 iterations is (more than) enough.
 
 ![Losses losses](figures/losses_losses.png?raw=true)
 
-Alinea over resultaten, welke resultaten zijn bekeken(grafieken van hoe de loss functions over iteraties gaan), uitleggen dat we het netwerk qua testen hebben gebruikt dat al beschikbaar was met de aangepaste weights, dan images naast elkaar zetten(GT, baseline, results per loss function) 
+In the tabel below we asses the performance of the different loss functions based on the metrics PSNR and SSIM. 
 
-Loss grafiek, metrics tabel - Annabel
+![Metrics losses](figures/Metrics_loss.png?raw=true)
+
 
 Table X: Resulting network outputs based on the loss functions used
-
-
-
-Ground Truth
-
-
-
-
-
-
-
-
-Baseline
-
-
-
-L_1 loss
-
-
-
-SSIM loss
-
-
-
 
 
 To test the network weights on a set of images, the provided script demo.py can be used. Simply add the test input images to the Demo_imgs folder, along with the weights for the network. Subsequently running demo.py then outputs the generated .jpg files, which can be seen in table X. Do note that the weights file should be called weights for the python file to run correctly.
@@ -146,13 +121,13 @@ Finally, similar to the second training, for the third training the same blocks 
 
 
 ## Results (RDB block)
-Since we reduced the amount of iterations for the training, we first wanted to confirm that our training indeed saturates. If we look at the loss curve below, from the first iteration to the last, we can indeed see that although the loss is quite noisy, the performance does not really improve anymore after ~250.000 iterations. Therefore 500.000 iterations is (more than) enough.
+Again, we first take a look at the loss curves to guarantee saturation. We see that although the loss is quite noisy, the performance does not really improve anymore after ~250.000 iterations which means that the training has saturated. 
 
-![Losses rdb](figures/losses_RDB.png?raw=true)
+![Losses rdb](figures/Losses_RDB.png?raw=true)
 
+Additionally, we asses the performance of the different architectures based on the metrics PSNR and SSIM. 
 
-
-
+![Metrics RDB](figures/Metrics_RDB.png?raw=true)
 
 #Qualitative results
 
@@ -160,23 +135,6 @@ Since we reduced the amount of iterations for the training, we first wanted to c
 ## Discussion
 
 alinea over potentiele andere dingen die we hadden kunnen testen(Loss function + RDB)
-
-
-
-
-
-Original
-Baseline
-RDB
-RDB* 2x
-RDB* 4x
-PSNR/SSIM
-28.66/0.790
-26.92/0.802
- 27.07/0.798
-27.06/0.802
-26.86/0.782
-
 
 
 
