@@ -42,7 +42,7 @@ For training the network, the authors used the L1 Regularization loss function a
 
 The L1 loss stands for Least Absolute Deviations (LAD) and is defined as follows: 
 
-<img src="figures/figure3.png" alt="Figure 3" width="50"/>
+<img src="figures/figure3.png" alt="Figure 3" width="200"/>
 
 ![Figure 3](figures/figure3.png?raw=true)
 
