@@ -14,11 +14,11 @@ The authors propose a new deep learning architecture for extreme low-light singl
 
 This was achieved by processing in higher scale -spaces allowing the intermediate-scales to be skipped. As can be shown in Figure 1, most current restoration networks use U-net style encoder-decoder wherein processing at lower scales causes significant latency and computational overhead. Therefore the authors proposed an architecture that jumps over these intermediate scales and operates at just three scales: the Lower Scale Encoder (LSE), the  Medium Scale Encoder (MSE) and Higher Scale Encoder (HSE).            
 
-!Figure 1](figures/figure1.png?raw=true)
+![Figure 1](figures/figure1.png?raw=true)
 
  *Figure 1. (a) Almost all methods rely on sequential processing. (b) The authors propose a parallel architecture for high inference speed. *
  
-Another unique feature to the model is the ability to process all the scale-spaces concurrently as all the encoder scales operate directly on the input image and do not have any inter-dependencies resulting in high inference speeds. This is because the different encoder layers can be calculated in parallel. The architectural details of the model are shown on the left of figure 2. Five different blocks exist, the three encoders, LSE, MSE, HSE and the two Fuse Blocks 1 and 2. The output of the MSE and HSE is concatenated in the Fuse Block 1, while the output of this fuse block and the LSE is then concatenated in Fuse Block 2, resulting in the output of the entire model.
+Another unique feature of the model is the ability to process all the scale-spaces concurrently as all the encoder scales operate directly on the input image and do not have any inter-dependencies resulting in high inference speeds. This is because the different encoder layers can be calculated in parallel. The architectural details of the model are shown on the left of figure 2. Five different blocks exist, the three encoders, LSE, MSE, HSE and the two Fuse Blocks 1 and 2. The output of the MSE and HSE is concatenated in the Fuse Block 1, while the output of this fuse block and the LSE is then concatenated in Fuse Block 2, resulting in the output of the entire model.
 
 A crucial part of the HSE is the widely used Residual Dense Block (RDB), which is implemented three times in series, in order to extract abundant local features via dense connected convolutional layers, while enabling a contiguous memory (CM) mechanism [2]. The typical architecture of such an RDB block can be seen on the top right of figure 2. Three convolutional layers exist, and three ReLu blocks are being used after every layer. For the ReLU block the authors have decided to use the LeakyReLU non-linearity block with a negative slope of 0.2, as suggested by the paper “Seeing in the Dark” [3]. More uniquely, however, the authors have decided to modify the entire RDB block’s structure (into RDB*). According to the authors, non-linear rectification after each convolutional layer unnecessarily clips the negative values of feature maps, losing valuable information. Nevertheless, the rectifiers are necessary to infuse the model with sufficient non-linearity. Therefore, as in the RDB, each convolutional layer in RDB* passes a rectified output to subsequent convolutional layer, guaranteeing sufficient non-linearity in RDB*, yet different from RDB, not the rectified, but the non-rectified output of all layers is concatenated for the final layer. This architecture, shown in Figure 2, allows simultaneous processing of both rectified and non-rectified outputs, unlike the original RDB, avoiding losing information due to non-linear rectification. 
 
@@ -28,16 +28,16 @@ A crucial part of the HSE is the widely used Residual Dense Block (RDB), which i
 
 ## Reproduction
 
-We found this network particularly interesting as there are many applications that real time restoration of extremely dark images can aid. We found the visual results rather pleasing and pursued understanding the methodology of this paper and network and its significance and relation to the results.
-We decided to pursue investigating different loss functions with the same network, as well as architectural changes of the final HSE and the RDB* block itself.
+We found this network particularly interesting as there are many applications that real time restoration of extremely dark images can aid, such as pedestrian detection in low light conditions.
+We decided to pursue investigating different loss functions with the same network, as well as architectural changes of the final HSE and the RDB* block itself. The reason for the loss function analysis is because the authors do not mention in the paper why this loss function is optimal.
 
 To train the network, we used  a smaller part of the Sony dataset from the SID [3]. Once the training is completed, the network yields weights that can (theoretically) be used to restore any extremely dark image. 
 
-In order to proceed with the project, first the runtime environment and hardware needed to be chosen and set up. Local personal computers were not equipped with sufficiently powerful processors, some even not with GPUs, and would result in training sessions lasting days, given the large dataset. Therefore, to allow progress and practical reproducibility, the training part of the deep learning network either needed to be done with a significantly reduced size of the dataset, potentially compromising the quality of the training or on dedicated hardware. Luckily, Google Cloud Platform service provides such dedicated powerful hardware for educational purposes. Before making use of this hardware, however, the code was analyzed on local runtime environments and Google Collab, which allows group collaboration on programming, where alterations to the code were tested and troubleshooted. Once there were no errors, this code was then uploaded to a remote virtual machine on Google Cloud Platform via the Git protocol and Github as our remote repository host. Google Cloud Platform is accessed purely via the SSH connection and the command line. The dataset also needed to be uploaded to the remote virtual machine, however this posed difficulties to do directly, due to the size of the dataset, the upload and download speeds of personal computers. Therefore it was first compressed in a zip file, and then uploaded to a google drive via a fiber optic network connection, from which it could then be downloaded by means of the virtual machine’s terminal with the help of a software called “gdrive”.
+In order to proceed with the project, first the runtime environment and hardware needed to be chosen and set up. Local personal computers were not equipped with sufficiently powerful processors, some not even with GPUs, and would result in training sessions lasting days to weeks, given the large dataset. Therefore, to allow progress and practical reproducibility, the training part of the deep learning network either needed to be done with a significantly reduced size of the dataset, potentially compromising the quality of the training or on dedicated hardware. Luckily, Google Cloud Platform service provides such dedicated powerful hardware for educational purposes. Before making use of this hardware, however, the code was analyzed on local runtime environments and Google Collab, which allows group collaboration on programming, where alterations to the code were tested and troubleshooted. Once there were no errors, this code was then uploaded to a remote virtual machine on Google Cloud Platform via the Git protocol and Github as our remote repository host. Google Cloud Platform is accessed purely via the SSH connection and the command line. The dataset also needed to be uploaded to the remote virtual machine. however, this posed difficulties to do directly, due to the size of the dataset and the upload and download speeds of personal computers. Therefore it was first compressed in a zip file, and then uploaded to a google drive via a fiber optic network connection, from which it could then be downloaded by means of the virtual machine’s terminal with the help of a software called “gdrive”.
 
-The code itself is written in Python, while extensive use of PyTorch packages is made in order to program this deep learning network. Also, although a CPU could be used for running this network, it is advised to use the GPU’s graphic processing capabilities, and therefore the CUDA platform is used to access the GPU. Based on these requirements, hardware for the virtual machine (VM) that was selected had an Intel Skylake CPU and a single core NVIDA Tesla T4 GPU with 30 GB Memory (made possible by 8 virtual processors). The software bundle that was selected was a Linux/Debian 10 optimized for use with PyTorch (version 1.10) and the CPU/GPU with CUDA 11.0. Finally a 100GB boot disk is used.
+The code itself is written in Python, alongside the PyTorch library in order to program this deep learning network. Also, although a CPU could be used for running this network, it is advised to use the GPU’s graphic processing capabilities. Based on these requirements, hardware for the virtual machine (VM) that was selected had an Intel Skylake CPU and a single core NVIDA Tesla T4 GPU with 30 GB Memory (made possible by 8 virtual processors). The software bundle that was selected was a Linux/Debian 10 optimized for use with PyTorch (version 1.10) and the CPU/GPU with CUDA 11.0. Finally a 100GB boot disk is used.
 
-The full dataset from the SID paper [3] contains many raw images that together take up more than 100 GB of storage space. This would have resulted in more than 24 hours training, even with the powerful remote virtual machine, therefore the dataset needed to be reduced as well. It was ultimately reduced to 21.2GB, meaning that 557 training files and 294 test files were used. As a result, a single training lasted around 12 hours.
+The full dataset from the SID paper [3] contains many raw images that together take up more than 100 GB of storage space. This would have resulted in more than 24 hours training, even with the powerful remote virtual machine, therefore the dataset needed to be reduced as well. It was ultimately reduced to an arbitrary amount of 47 training images and 27 test images. We only used images taken with a shutterspeed of 0.1s, to reduce variability in the data.
 
 ## General Code Adjustments 
 
@@ -70,7 +70,7 @@ The SSIM is defined as the structural similarity index measure and can be used t
 The multiscale structural similarity index (MS-SSIM) is an extension of the SSIM function that achieves better accuracy than the single scale SSIM approach but at the cost of relatively lower processing speed [6]. 
 
 ### Code Loss Function 
-The loss function used can simply be adapted in line that defines the loss within the while-loop for the training setup. Right before this while-loop, the loss functions can be defined. The code can be found in Figure 5.
+The loss function used can simply be adapted in the lines that define the loss within the while-loop for the training setup. Right before this while-loop, the loss functions can be defined. The code can be found in Figure 5.
 
 ![Figure 8](figures/figure8.png?raw=true)
 
@@ -98,59 +98,64 @@ In Table 1 we assess the performance of the different loss functions based on th
 Looking at the average pnsr/SSIM metrics, We see that all our results perform worse than that of the paper with the larger dataset, albeit not significantly so. We also see that the baseline loss function(L1 + SSIM) has the highest peak signal to noise ratio. This indicates that even with the reduced dataset, the originally used loss function seems to perform the best when training the network.
 
 
-To test the network weights on a set of images, the provided script demo.py can be used. Simply add the test input images to the Demo_imgs folder, along with the weights for the network. Subsequently running demo.py then outputs the generated .jpg files, which can be seen in figure X. Do note that the weights file should be called weights for the python file to run correctly.
+To test the network weights on a set of images, the provided script demo.py can be used. Simply add the test input images to the Demo_imgs folder, along with the weights for the network. Subsequently running demo.py then outputs the generated .jpg files, which can be seen in figure 7. Do note that the weights file should be called weights for the python file to run correctly.
 
 While this is hardly a quantitative analysis, as the difference between each result is very small, we see a few very small differences between the results. General image quality seems to be very similar, but there are some slight colouration differences: The bar underneath the table in the SSIM result is coloured more purple, and the baseline has slightly brighter leaves. Noise is apparent in all results, but the difference in noise patterns is not easily understood just from the images alone. However, it is interesting to see that the system performs relatively well with such a small dataset.
 
-Figure X: Resulting images when applying the model on various test images
+Figure 7: Resulting images when applying the model on various test images
 
 ![Figure 34](figures/figure34.PNG?raw=true)
 
 
-Figure X: Another test image with a lower exposure time
-![Figure 35](figures/fig_val?width=400)
-Another validation image which was not used for training is tested with a different exposure time(0.033s respectively instead of 0.1s), which can be found in table X. The system seems to perform significantly worse, judging on the noise and green hue, but the image is still clearly understandable. However, this is once again not a quantitative result, but rather a personal observation.
+Figure 8: Another test image with a lower exposure time
+
+<img src="figures/Fig_validation.jpg" alt="Figure val" width="400"/>
+
+Another validation image which was not used for training is tested with a different exposure time(0.033s respectively instead of 0.1s), which can be found in figure 8. The system seems to perform significantly worse, judging on the noise and green hue, but the image is still clearly understandable. However, this is once again not a quantitative result, but rather a personal observation.
 
 
 ### Code RDB Block  
-For the first training the network.py file has been adjusted by changing the activation type in the convolution layers. In the RDB* module, the first, middle and last convolutional layer’s activation functions are “false” (meaning disabled), “before” and “before” respectively, while reverting it to the original canonical RDB they all become “after”. This can be seen in the network.py file at lines 92, 97 and 102, in Figure 8.
+For the first training, the network.py file has been adjusted by changing the activation type in the convolution layers. In the RDB* module, the first, middle and last convolutional layers' activation functions are “false” (meaning disabled), “before”(meaning performing the nonlinear step before convolution) and “before” respectively, while reverting it to the original canonical RDB they all become “after”. This can be seen in the network.py file at lines 92, 97 and 102, in Figure 9.
 
 ![Figure 22b](figures/figure22b.png?raw=true)
 
-*Figure 8. Adjustment of the activation functions.*
+*Figure 9. Adjustment of the activation functions.*
 
-For modifying the number of RDB blocks in the HSE the network.py file needs to be edited again, but this time at lines 150 and line 151, where in the first line the third RDB initialisation is removed, and in the second line the settings of the convolutional layer are adjusted to accommodate for two sets of 64 input channels, rather than three. This is shown in Figure 9. 
+For modifying the number of RDB blocks in the HSE the network.py file needs to be edited again, but this time at lines 150 and line 151, where in the first line the third RDB initialisation is removed, and in the second line the settings of the convolutional layer are adjusted to accommodate for two sets of 64 input channels, rather than three. This is shown in Figure 10. 
 
 ![Figure 23b](figures/figure23b.png?raw=true)
 
-*Figure 9. Adjustment of the number of RDB blocks.*
+*Figure 10. Adjustment of the number of RDB blocks.*
 
-Finally, at line 188, the third RDB block itself is removed, and the concatenation is adjusted to only include the first and second RDB blocks. This is shown in Figure 10. 
+Finally, at line 188, the third RDB block itself is removed, and the concatenation is adjusted to only include the first and second RDB blocks. This is shown in Figure 11. 
 
 ![Figure 24b](figures/figure25b.png?raw=true)
 
-*Figure 10. Removal of the third RDB block.*
+*Figure 11. Removal of the third RDB block.*
 
-Similar to the second training, for the third training the same blocks of codes are edited, but instead of removing RDB3, an RDB4 is added, and the concatenation is adjusted to 3 sets of 64 channels. This is shown in Figures 11 and 12. 
+Similar to the second training, for the third training the same blocks of codes are edited, but instead of removing RDB3, an RDB4 is added, and the concatenation is adjusted to 3 sets of 64 channels. This is shown in Figures 12 and 13. 
 
 ![Figure 23c](figures/figure23c.png?raw=true)
 
-*Figure 11. Adjusting the number of RDB blocks to 4.*
+*Figure 12. Adjusting the number of RDB blocks to 4.*
 
 ![Figure 24c](figures/figure25c.png?raw=true)
 
-*Figure 12. Addition of the fourth RDB block.*
+*Figure 13. Addition of the fourth RDB block.*
 
 
 ###  Results
-Again, we first take a look at the loss curves to guarantee saturation. As we saw for the loss functions, we see that although the loss is quite noisy, the performance does not really improve anymore after ~250.000 iterations which means that the training has saturated. This is shown in Figure 13.
+Again, we first take a look at the loss curves to guarantee saturation. As we saw for the loss functions, we see that although the loss is quite noisy, the performance does not really improve anymore after ~250.000 iterations which means that the training has saturated. This is shown in Figure 14.
 
 ![Losses rdb](figures/Losses_RDB.png?raw=true)
-*Figure 13: Different loss curves for different amount of RDB blocks.*
+*Figure 14: Different loss curves for different amount of RDB blocks.*
 
 ![Figure 32](figures/figure32.PNG?raw=true)
 
-Additionally, we asses the performance of the different architectures based on the metrics PSNR and SSIM in Table 2. 
+#Quantitative results
+Next we look at some quantitative results, if we look at the average Peak Signal to Noise Ratio (PSNR) and Structural Similarity Index Measurement (SSIM). We can observe that our results also all perform worse than the original claim of the paper. This is most probably because of the use of less data. However it is worth noting that all our measurements are so close, that one outperforming the other is highly likely due to variance. Furthermore, when looking at these results, it is not abundantly clear that the proposed RDB* really outperforms the classical RDB (and even underperforms in this test).
+
+
 
 <img src="figures/Metrics_RDB.png" alt="Metrics RDB" width="600"/>
 
@@ -158,9 +163,14 @@ Additionally, we asses the performance of the different architectures based on t
 
 ![Figure 33](figures/figure33.PNG?raw=true)
 
+#Qualitative
+To test the performance of the network, images are created from the network in the same way as described in the Loss function section. Although all images look very alike, there can be some little differences spotted in perceived brightness, as well as some small color distortions. However it is hard to visually decide which network really performed better, since the differences are so small.
 ## Discussion
 
-alinea over potentiele andere dingen die we hadden kunnen testen(Loss function + RDB)
+Both the study on the loss functions and on the architectural changes provided similar results: the networks converged rather quickly(around 150.00K-250.00k) iterations, after which the loss function oscillated around an average. Qualitatively, the images resembled the baseline and did not vary much. In all cases, the metrics were very similar, but performed slightly worse to the baseline system. All networks with the reduced dataset did perform worse than the original with the full dataset. However, this diference in results on the testing set was small enough that the system could still be considered functinonal. This indicates that the system does not require as much training data and training time to fulfil its task. However, more research must be done to see how well this network with the reduced dataset generalizes to other cameras and datasets, something the original paper did claim it could. A quick qualitative test on an image with a different exposure time already showed signs of reduced performance(see figure  8).
+
+While this reproducibility project did not provide any completely new insights, it did show off the robustness of the overal design of the network: Alternate loss functions and changes to the RDB architecture blocks did not show any significant increase or reduction in performance. However, without more tests, we do not have the statistical power to back up these claims for more general implementations. Therefore, we still recmomend more tests, with larger and more varied datasets as a continuation of our work. 
+
 
 
 ## References 
