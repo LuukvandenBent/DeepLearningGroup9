@@ -102,11 +102,12 @@ To test the network weights on a set of images, the provided script demo.py can 
 
 While this is hardly a quantitative analysis, as the difference between each result is very small, we see a few very small differences between the results. General image quality seems to be very similar, but there are some slight colouration differences: The bar underneath the table in the SSIM result is coloured more purple, and the baseline has slightly brighter leaves. Noise is apparent in all results, but the difference in noise patterns is not easily understood just from the images alone. However, it is interesting to see that the system performs relatively well with such a small dataset.
 
-Table X: Another test image with a lower exposure time
-Baseline
+Table X: Resulting images when applying the model on various test images
 
 ![Figure 34](figures/figure34.PNG?raw=true)
 
+
+Figure X: Another test image with a lower exposure time
 Another image which was not used for training is tested with a different exposure time(0.033s respectively instead of 0.1s), which can be found in table X. The system seems to perform significantly worse, judging on the noise and green hue, but the image is still clearly understandable.
 
 
