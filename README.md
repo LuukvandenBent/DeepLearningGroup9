@@ -1,8 +1,8 @@
 
   
 # Reproducibility Project: "Restoring Extremely Dark Images In Real Time" 
-Group 9: Sahánd Wagemakers, Luuk van Den Bent, Annabel Hazewinkel, Ethem
-31/03/2022
+
+Group 9: Sahánd Wagemakers, Luuk van Den Bent, Annabel Hazewinkel, Ethem Demir
 
 This blog post is about the reproducibility of the Deep Learning paper “Restoring Extremely Dark Images In Real Time”[insert link] by Mohit Lamba and Kaushik Mitra. We have investigated alternative loss functions to the existing problem, as well as the effect of the (amount of) proposed RDB* modules, compared to the original RDB modules. This research is conducted as part of the CS4240 Deep Learning course at Delft University of Technology. 
 
@@ -36,21 +36,7 @@ The code itself is written in Python, while extensive use of PyTorch packages is
 The full dataset from the SID paper [10] includes many raw images totalling up to a space requirement of **120 GB** of storage. This would have resulted in more than 24 hours training, even with the powerful remote virtual machine, therefore the dataset needed to be reduced as well. It was ultimately reduced to 21.2GB, meaning that 557 training files and 294 test files were used. As a result, a single training lasted around 12 hours.
 Further information on the modifications to the code and the motivations behind them are provided in their respective sections.
 
-
-## Loss Function Analysis
-For training the network, the authors used the L1 Regularization loss function and the multiscale structural similarity index (MS-SSIM) loss function with a weightage of 0.8 and 0.2, respectively. In order to verify the performance of this combination, these loss functions were tested individually. The structural similarity index (SSIM) loss function was also tested for additional validation.
-
-The L1 loss stands for Least Absolute Deviations (LAD) and is defined as follows: 
-
-<img src="figures/figure3.png" alt="Figure 3" width="400"/>
-
-
-The SSIM is defined as the structural similarity index measure and can be used to predict the perceived quality of images [1]. The MS-SSIM loss function is computed as follows: 
-
-<img src="figures/figure4.png" alt="Figure 4" width="400"/>
-<img src="figures/figure5.png" alt="Figure 5" width="400"/>
-
-The multiscale structural similarity index (MS-SSIM) is an extension of the SSIM function that achieves better accuracy than the single scale SSIM approach but at the cost of relatively lower processing speed [2]. 
+## General Code Adjustments 
 
 The code provided in the repository alongside the paper was mostly stable. However, several changes were important to make to get the code fully working. A simple but necessary change in the train file used is to adapt the file location used to retrieve the data files: The locations provided in the github repository were incorrect for the repository itself. We set up the dataset location to be outside of the github folder to save space.
 Figure X shows an example of how the locations in glob.glob were modified.
@@ -65,6 +51,22 @@ The other change needed to make the system work was in common_classes.py. In the
 
 Figure X:the lines which needed to be uncommented.
 
+## Loss Functions
+### Loss Function Analyis 
+For training the network, the authors used the L1 Regularization loss function and the multiscale structural similarity index (MS-SSIM) loss function with a weightage of 0.8 and 0.2, respectively. In order to verify the performance of this combination, these loss functions were tested individually. The structural similarity index (SSIM) loss function was also tested for additional validation.
+
+The L1 loss stands for Least Absolute Deviations (LAD) and is defined as follows: 
+
+<img src="figures/figure3.png" alt="Figure 3" width="400"/>
+
+### Code Loss Function 
+The SSIM is defined as the structural similarity index measure and can be used to predict the perceived quality of images [1]. The MS-SSIM loss function is computed as follows: 
+
+<img src="figures/figure4.png" alt="Figure 4" width="400"/>
+<img src="figures/figure5.png" alt="Figure 5" width="400"/>
+
+The multiscale structural similarity index (MS-SSIM) is an extension of the SSIM function that achieves better accuracy than the single scale SSIM approach but at the cost of relatively lower processing speed [2]. 
+
 The loss function used can simply be adapted in line that defines the loss within the while-loop for the training setup. Right before this while-loop, the loss functions can be defined. The code can be found in figure X.
 
 ![Figure 8](figures/figure8.png?raw=true)
@@ -72,7 +74,7 @@ The loss function used can simply be adapted in line that defines the loss withi
 Figure X: The code adapted for the loss function adaptation
 
 
-## Results(Loss function)
+### Results 
 Since we reduced the amount of iterations for the training, we first wanted to confirm that our training indeed saturates. If we look at the loss curves below, from the first iteration to the last, we can indeed see that although the loss is quite noisy, the performance does not really improve anymore after ~250.000 iterations. Therefore 500.000 iterations is (more than) enough.
 
 ![Losses losses](figures/losses_losses.png?raw=true)
@@ -95,10 +97,11 @@ Baseline
 Another image which was not used for training is tested with a different exposure time(0.033s respectively instead of 0.1s), which can be found in table X. The system seems to perform significantly worse judging on the noise and green hue, but the image is still clearly understandable.
 
 
-## RDB block
+## RDB Block
 
 The authors have modified the Residual Dense Block (RDB) that is widely used for non-linear rectification and reasoned that it is more effective. They have stated in their ablation study, that the change from RDB* to RDB caused the PSNR/SSIM to drop from 28.66dB/0.79 to 27.96dB/0.77. We went ahead and tested this. Additionally, we investigated how effectively a change in the number of RDB blocks within the High Scale Encoder impacts the results. Therefore we ran a total number of three training sessions for the study of the RDB block.
 
+### Code RDB Block  
 For the first training the network.py file has been adjusted by changing the activation type in the convolution layers. In the RDB* module, the first, middle and last convolutional layer’s activation functions are “false” (meaning disabled), “before” and “before” respectively, while reverting it to the original canonical RDB they all become “after”. This can be seen in the network.py file at line 85 to 105.
 
 ![Figure 22a](figures/figure22a.png?raw=true)
@@ -120,7 +123,7 @@ Finally, similar to the second training, for the third training the same blocks 
 ![Figure 24c](figures/figure25c.png?raw=true)
 
 
-## Results (RDB block)
+###  Results
 Again, we first take a look at the loss curves to guarantee saturation. We see that although the loss is quite noisy, the performance does not really improve anymore after ~250.000 iterations which means that the training has saturated. 
 
 ![Losses rdb](figures/Losses_RDB.png?raw=true)
@@ -133,8 +136,6 @@ Additionally, we asses the performance of the different architectures based on t
 ## Discussion
 
 alinea over potentiele andere dingen die we hadden kunnen testen(Loss function + RDB)
-
-
 
 
 ## References 
