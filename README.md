@@ -42,12 +42,14 @@ For training the network, the authors used the L1 Regularization loss function a
 
 The L1 loss stands for Least Absolute Deviations (LAD) and is defined as follows: 
 
-<img src="figures/figure3.png" alt="Figure 3" width="200"/>
+<img src="figures/figure3.png" alt="Figure 3" width="400"/>
 
 ![Figure 3](figures/figure3.png?raw=true)
 
 The SSIM is defined as the structural similarity index measure and can be used to predict the perceived quality of images [1]. The MS-SSIM loss function is computed as follows: 
 
+<img src="figures/figure4.png" alt="Figure 4" width="400"/>
+<img src="figures/figure5.png" alt="Figure 5" width="400"/>
 ![Figure 4](figures/figure4.png?raw=true)
 ![Figure 5](figures/figure5.png?raw=true)
 
