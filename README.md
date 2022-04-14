@@ -4,7 +4,7 @@
 
 Group 9: Sahánd Wagemakers, Luuk van Den Bent, Annabel Hazewinkel, Ethem Demir.
 
-This blog post is about the reproducibility of the Deep Learning paper “Restoring Extremely Dark Images In Real Time” by Mohit Lamba and Kaushik Mitra. We have investigated alternative loss functions to the existing problem, as well as the effect of the (amount of) proposed RDB* modules compared to the original RDB modules. This research is conducted as part of the CS4240 Deep Learning course at Delft University of Technology. 
+This blog post is about the reproducibility of the Deep Learning paper “Restoring Extremely Dark Images In Real Time” by Mohit Lamba and Kaushik Mitra [1]. We have investigated alternative loss functions to the existing problem, as well as the effect of the (amount of) proposed RDB* modules compared to the original RDB modules. This research is conducted as part of the CS4240 Deep Learning course at Delft University of Technology. 
 
 ## Introduction
 
@@ -14,13 +14,13 @@ The authors propose a new deep learning architecture for extreme low-light singl
 
 This was achieved by processing in higher scale -spaces allowing the intermediate-scales to be skipped. As can be shown in Figure 1, most current restoration networks use U-net style encoder-decoder wherein processing at lower scales causes significant latency and computational overhead. Therefore the authors proposed an architecture that jumps over these intermediate scales and operates at just three scales: the Lower Scale Encoder (LSE), the  Medium Scale Encoder (MSE) and Higher Scale Encoder (HSE).            
 
-![Figure 1](figures/figure1.png?raw=true)
+!Figure 1](figures/figure1.png?raw=true)
 
  *Figure 1. (a) Almost all methods rely on sequential processing. (b) The authors propose a parallel architecture for high inference speed. *
  
 Another unique feature to the model is the ability to process all the scale-spaces concurrently as all the encoder scales operate directly on the input image and do not have any inter-dependencies resulting in high inference speeds. This is because the different encoder layers can be calculated in parallel. The architectural details of the model are shown on the left of figure 2. Five different blocks exist, the three encoders, LSE, MSE, HSE and the two Fuse Blocks 1 and 2. The output of the MSE and HSE is concatenated in the Fuse Block 1, while the output of this fuse block and the LSE is then concatenated in Fuse Block 2, resulting in the output of the entire model.
 
-A crucial part of the HSE is the widely used Residual Dense Block (RDB), which is implemented three times in series, in order to extract abundant local features via dense connected convolutional layers, while enabling a contiguous memory (CM) mechanism [1]. The typical architecture of such an RDB block can be seen on the top right of figure 2. Three convolutional layers exist, and three ReLu blocks are being used after every layer. For the ReLU block the authors have decided to use the LeakyReLU non-linearity block with a negative slope of 0.2, as suggested by the paper “Seeing in the Dark” [2]. More uniquely, however, the authors have decided to modify the entire RDB block’s structure (into RDB*). According to the authors, non-linear rectification after each convolutional layer unnecessarily clips the negative values of feature maps, losing valuable information. Nevertheless, the rectifiers are necessary to infuse the model with sufficient non-linearity. Therefore, as in the RDB, each convolutional layer in RDB* passes a rectified output to subsequent convolutional layer, guaranteeing sufficient non-linearity in RDB*, yet different from RDB, not the rectified, but the non-rectified output of all layers is concatenated for the final layer. This architecture, shown in Figure 2, allows simultaneous processing of both rectified and non-rectified outputs, unlike the original RDB, avoiding losing information due to non-linear rectification. 
+A crucial part of the HSE is the widely used Residual Dense Block (RDB), which is implemented three times in series, in order to extract abundant local features via dense connected convolutional layers, while enabling a contiguous memory (CM) mechanism [2]. The typical architecture of such an RDB block can be seen on the top right of figure 2. Three convolutional layers exist, and three ReLu blocks are being used after every layer. For the ReLU block the authors have decided to use the LeakyReLU non-linearity block with a negative slope of 0.2, as suggested by the paper “Seeing in the Dark” [3]. More uniquely, however, the authors have decided to modify the entire RDB block’s structure (into RDB*). According to the authors, non-linear rectification after each convolutional layer unnecessarily clips the negative values of feature maps, losing valuable information. Nevertheless, the rectifiers are necessary to infuse the model with sufficient non-linearity. Therefore, as in the RDB, each convolutional layer in RDB* passes a rectified output to subsequent convolutional layer, guaranteeing sufficient non-linearity in RDB*, yet different from RDB, not the rectified, but the non-rectified output of all layers is concatenated for the final layer. This architecture, shown in Figure 2, allows simultaneous processing of both rectified and non-rectified outputs, unlike the original RDB, avoiding losing information due to non-linear rectification. 
 
 ![Figure 2](figures/figure2.png?raw=true)
 
@@ -31,13 +31,13 @@ A crucial part of the HSE is the widely used Residual Dense Block (RDB), which i
 We found this network particularly interesting as there are many applications that real time restoration of extremely dark images can aid. We found the visual results rather pleasing and pursued understanding the methodology of this paper and network and its significance and relation to the results.
 We decided to pursue investigating different loss functions with the same network, as well as architectural changes of the final HSE and the RDB* block itself.
 
-To train the network, we used  a smaller part of the Sony dataset from the SID [2]. Once the training is completed, the network yields weights that can (theoretically) be used to restore any extremely dark image. 
+To train the network, we used  a smaller part of the Sony dataset from the SID [3]. Once the training is completed, the network yields weights that can (theoretically) be used to restore any extremely dark image. 
 
 In order to proceed with the project, first the runtime environment and hardware needed to be chosen and set up. Local personal computers were not equipped with sufficiently powerful processors, some even not with GPUs, and would result in training sessions lasting days, given the large dataset. Therefore, to allow progress and practical reproducibility, the training part of the deep learning network either needed to be done with a significantly reduced size of the dataset, potentially compromising the quality of the training or on dedicated hardware. Luckily, Google Cloud Platform service provides such dedicated powerful hardware for educational purposes. Before making use of this hardware, however, the code was analyzed on local runtime environments and Google Collab, which allows group collaboration on programming, where alterations to the code were tested and troubleshooted. Once there were no errors, this code was then uploaded to a remote virtual machine on Google Cloud Platform via the Git protocol and Github as our remote repository host. Google Cloud Platform is accessed purely via the SSH connection and the command line. The dataset also needed to be uploaded to the remote virtual machine, however this posed difficulties to do directly, due to the size of the dataset, the upload and download speeds of personal computers. Therefore it was first compressed in a zip file, and then uploaded to a google drive via a fiber optic network connection, from which it could then be downloaded by means of the virtual machine’s terminal with the help of a software called “gdrive”.
 
 The code itself is written in Python, while extensive use of PyTorch packages is made in order to program this deep learning network. Also, although a CPU could be used for running this network, it is advised to use the GPU’s graphic processing capabilities, and therefore the CUDA platform is used to access the GPU. Based on these requirements, hardware for the virtual machine (VM) that was selected had an Intel Skylake CPU and a single core NVIDA Tesla T4 GPU with 30 GB Memory (made possible by 8 virtual processors). The software bundle that was selected was a Linux/Debian 10 optimized for use with PyTorch (version 1.10) and the CPU/GPU with CUDA 11.0. Finally a 100GB boot disk is used.
 
-The full dataset from the SID paper [2] contains many raw images that together take up more than 100 GB of storage space. This would have resulted in more than 24 hours training, even with the powerful remote virtual machine, therefore the dataset needed to be reduced as well. It was ultimately reduced to 21.2GB, meaning that 557 training files and 294 test files were used. As a result, a single training lasted around 12 hours.
+The full dataset from the SID paper [3] contains many raw images that together take up more than 100 GB of storage space. This would have resulted in more than 24 hours training, even with the powerful remote virtual machine, therefore the dataset needed to be reduced as well. It was ultimately reduced to 21.2GB, meaning that 557 training files and 294 test files were used. As a result, a single training lasted around 12 hours.
 
 ## General Code Adjustments 
 
@@ -58,16 +58,16 @@ The other change needed to make the system work was in common_classes.py. In the
 ### Loss Function Analyis 
 For training the network, the authors used the L1 Regularization loss function and the multiscale structural similarity index (MS-SSIM) loss function with a weightage of 0.8 and 0.2, respectively. In order to verify the performance of this combination, these loss functions were tested individually. The structural similarity index (SSIM) loss function was also tested for additional validation.
 
-The L1 loss stands for Least Absolute Deviations (LAD) and is defined as follows [3]: 
+The L1 loss stands for Least Absolute Deviations (LAD) and is defined as follows [4]: 
 
 <img src="figures/figure3.png" alt="Figure 3" width="400"/>
 
-The SSIM is defined as the structural similarity index measure and can be used to predict the perceived quality of images [4]. The MS-SSIM loss function is computed as follows: 
+The SSIM is defined as the structural similarity index measure and can be used to predict the perceived quality of images [5]. The MS-SSIM loss function is computed as follows: 
 
 <img src="figures/figure4.png" alt="Figure 4" width="400"/>
 <img src="figures/figure5.png" alt="Figure 5" width="400"/>
 
-The multiscale structural similarity index (MS-SSIM) is an extension of the SSIM function that achieves better accuracy than the single scale SSIM approach but at the cost of relatively lower processing speed [5]. 
+The multiscale structural similarity index (MS-SSIM) is an extension of the SSIM function that achieves better accuracy than the single scale SSIM approach but at the cost of relatively lower processing speed [6]. 
 
 ### Code Loss Function 
 The loss function used can simply be adapted in line that defines the loss within the while-loop for the training setup. Right before this while-loop, the loss functions can be defined. The code can be found in Figure 5.
@@ -163,15 +163,17 @@ alinea over potentiele andere dingen die we hadden kunnen testen(Loss function +
 
 
 ## References 
-[1] Yulun Zhang, Yapeng Tian, Yu Kong, Bineng Zhong, and Yun Fu. Residual dense network for image super-resolution. In CVPR, 2018.
+[1] M. Lamba and K. Mitra, “Restoring Extremely Dark Images in Real Time”, 2021 IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR), 2021, pp. 3486-3496, doi: 10.1109/CVPR46437.2021.00349.
 
-[2] Chen Chen, Qifeng Chen, Jia Xu, and Vladlen Koltun. Learning to see in the dark. In CVPR, 2018.
+[2] Yulun Zhang, Yapeng Tian, Yu Kong, Bineng Zhong, and Yun Fu. Residual dense network for image super-resolution. In CVPR, 2018.
 
-[3] Liu, Jun, and Jieping Ye. "Efficient l1/lq norm regularization." arXiv preprint arXiv:1009.4766 (2010).
+[3] Chen Chen, Qifeng Chen, Jia Xu, and Vladlen Koltun. Learning to see in the dark. In CVPR, 2018.
 
-[4] Hang Zhao, Orazio Gallo, Iuri Frosio, and Jan Kautz. Loss functions for image restoration with neural networks. IEEE Transactions on computational imaging, 3(1):47–57, 2016.
+[4] Liu, Jun, and Jieping Ye. "Efficient l1/lq norm regularization." arXiv preprint arXiv:1009.4766 (2010).
 
-[5] M. Abdel-Salam Nasr, Mohammed F. AlRahmawy, A.S. Tolba, Multi-scale structural similarity index for motion detection, Journal of King Saud University - Computer and Information Sciences, Volume 29, Issue 3, 2017.
+[5] Hang Zhao, Orazio Gallo, Iuri Frosio, and Jan Kautz. Loss functions for image restoration with neural networks. IEEE Transactions on computational imaging, 3(1):47–57, 2016.
+
+[6] M. Abdel-Salam Nasr, Mohammed F. AlRahmawy, A.S. Tolba, Multi-scale structural similarity index for motion detection, Journal of King Saud University - Computer and Information Sciences, Volume 29, Issue 3, 2017.
 
 # Appendix
 <details>
