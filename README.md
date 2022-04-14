@@ -192,15 +192,11 @@ PSNR/SSIM
 
 # Appendix
 <details>
-<summary>Click me</summary>
-
-![peshka](https://user-images.githubusercontent.com/6751442/107185174-fcd8c980-69f2-11eb-89d4-0843c47d781b.jpeg) 
-
-</details>
-<details> <summary>Original Raw Un-edited</summary>
+  <summary>Original Raw Un-edited</summary>
   ![Figure A11](figures/figureA11.png?raw=true)
   ![Figure A12](figures/figureA12.png?raw=true)
-  ![Figure A13](figures/figureA13.png?raw=true)</details>
+  ![Figure A13](figures/figureA13.png?raw=true)
+</details>
 <details> <summary>Ground truth</summary>
   ![Figure A21](figures/figureA21.png?raw=true)
   ![Figure A22](figures/figureA22.png?raw=true)
