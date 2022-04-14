@@ -1,6 +1,7 @@
 
   
-# Reproducibility Project: "Restoring Extremely Dark Images In Real Time" 
+# Reproducibility Project:
+# "Restoring Extremely Dark Images In Real Time" 
 
 Group 9: Sahánd Wagemakers, Luuk van Den Bent, Annabel Hazewinkel, Ethem Demir.
 
@@ -114,7 +115,7 @@ Figure 8: Another test image with a lower exposure time
 Another validation image which was not used for training is tested with a different exposure time(0.033s respectively instead of 0.1s), which can be found in figure 8. The system seems to perform significantly worse, judging on the noise and green hue, but the image is still clearly understandable. However, this is once again not a quantitative result, but rather a personal observation.
 
 
-### Code RDB Block  
+## Code RDB Block  
 For the first training, the network.py file has been adjusted by changing the activation type in the convolution layers. In the RDB* module, the first, middle and last convolutional layers' activation functions are “false” (meaning disabled), “before”(meaning performing the nonlinear step before convolution) and “before” respectively, while reverting it to the original canonical RDB they all become “after”. This can be seen in the network.py file at lines 92, 97 and 102, in Figure 9.
 
 ![Figure 22b](figures/figure22b.png?raw=true)
@@ -144,7 +145,7 @@ Similar to the second training, for the third training the same blocks of codes 
 *Figure 13. Addition of the fourth RDB block.*
 
 
-###  Results
+##  Results
 Again, we first take a look at the loss curves to guarantee saturation. As we saw for the loss functions, we see that although the loss is quite noisy, the performance does not really improve anymore after ~250.000 iterations which means that the training has saturated. This is shown in Figure 14.
 
 ![Losses rdb](figures/Losses_RDB.png?raw=true)
@@ -152,7 +153,7 @@ Again, we first take a look at the loss curves to guarantee saturation. As we sa
 
 ![Figure 32](figures/figure32.PNG?raw=true)
 
-# Quantitative results
+### Quantitative results
 Next we look at some quantitative results, if we look at the average Peak Signal to Noise Ratio (PSNR) and Structural Similarity Index Measurement (SSIM). We can observe that our results also all perform worse than the original claim of the paper. This is most probably because of the use of less data. However it is worth noting that all our measurements are so close, that one outperforming the other is highly likely due to variance. Furthermore, when looking at these results, it is not abundantly clear that the proposed RDB* really outperforms the classical RDB (and even underperforms in this test).
 
 
@@ -163,8 +164,9 @@ Next we look at some quantitative results, if we look at the average Peak Signal
 
 ![Figure 33](figures/figure33.PNG?raw=true)
 
-# Qualitative
+### Qualitative Results
 To test the performance of the network, images are created from the network in the same way as described in the Loss function section. Although all images look very alike, there can be some little differences spotted in perceived brightness, as well as some small color distortions. However it is hard to visually decide which network really performed better, since the differences are so small.
+
 ## Discussion
 
 Both the study on the loss functions and on the architectural changes provided similar results: the networks converged rather quickly(around 150.00K-250.00k) iterations, after which the loss function oscillated around an average. Qualitatively, the images resembled the baseline and did not vary much. In all cases, the metrics were very similar, but performed slightly worse to the baseline system. All networks with the reduced dataset did perform worse than the original with the full dataset. However, this diference in results on the testing set was small enough that the system could still be considered functinonal. This indicates that the system does not require as much training data and training time to fulfil its task. However, more research must be done to see how well this network with the reduced dataset generalizes to other cameras and datasets, something the original paper did claim it could. A quick qualitative test on an image with a different exposure time already showed signs of reduced performance(see figure  8).
@@ -186,7 +188,7 @@ While this reproducibility project did not provide any completely new insights, 
 
 [6] M. Abdel-Salam Nasr, Mohammed F. AlRahmawy, A.S. Tolba, Multi-scale structural similarity index for motion detection, Journal of King Saud University - Computer and Information Sciences, Volume 29, Issue 3, 2017.
 
-# Appendix
+## Appendix
 <details>
 
   <summary>Original Raw Un-edited</summary>
