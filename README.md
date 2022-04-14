@@ -191,7 +191,7 @@ PSNR/SSIM
 
 
 # Appendix
-<details>/<summary>
+<details>/<summary></summary>
   ![Figure 1](figures/figureA1.png?raw=true)</details>
 <details> <summary>Original Raw Un-edited</summary>
   ![Figure A11](figures/figureA11.png?raw=true)
